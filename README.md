@@ -145,7 +145,7 @@ The API key is loaded from `.env` in the main process and injected into the rend
 
 | Layer | Tech |
 |---|---|
-| Desktop shell | Electron 28 |
+| Desktop shell | Electron 33 |
 | Persistence | electron-store |
 | HTTP (main process) | node-fetch |
 | Maps | Google Maps JavaScript API |

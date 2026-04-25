@@ -2,7 +2,7 @@
 /**
  * mock-server.js
  *
- * A simple Express mock server that simulates all three ServiceFinder endpoints.
+ * A simple Node.js mock server that simulates all three ServiceFinder endpoints.
  * Run with: node mock-server.js
  *
  * Endpoints:
