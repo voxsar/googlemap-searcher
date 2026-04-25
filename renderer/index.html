@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ServiceFinder</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="theme-dark">
+
+  <!-- ── Custom Titlebar ─────────────────────────────────────────────────── -->
+  <header id="titlebar">
+    <div id="traffic-lights">
+      <button class="tl-btn tl-close" id="btn-close" aria-label="Close" title="Close"></button>
+      <button class="tl-btn tl-minimize" id="btn-minimize" aria-label="Minimize" title="Minimize"></button>
+      <button class="tl-btn tl-maximize" id="btn-maximize" aria-label="Maximize" title="Maximize"></button>
+    </div>
+    <span id="app-title">ServiceFinder</span>
+    <div id="titlebar-actions">
+      <button id="btn-theme" aria-label="Toggle theme" title="Toggle dark/light mode">
+        <span id="theme-icon">🌙</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ── App Body ────────────────────────────────────────────────────────── -->
+  <div id="app-body">
+
+    <!-- Sidebar -->
+    <aside id="sidebar">
+      <!-- URL Config Section -->
+      <section class="sidebar-section" id="section-config">
+        <h2 class="section-title">URL Configuration</h2>
+
+        <div class="url-field-group">
+          <label class="field-label">Address Source URL</label>
+          <div class="input-row">
+            <span class="status-dot" id="dot-address"></span>
+            <input type="url" id="input-address-url" class="url-input" placeholder="https://api.example.com/address" />
+          </div>
+          <button class="action-btn" id="btn-fetch" data-action="fetch">
+            <span class="btn-text">Fetch</span>
+            <span class="btn-spinner hidden"></span>
+          </button>
+        </div>
+
+        <div class="url-field-group">
+          <label class="field-label">Service Database URL</label>
+          <div class="input-row">
+            <span class="status-dot" id="dot-service"></span>
+            <input type="url" id="input-service-url" class="url-input" placeholder="https://api.example.com/services" />
+          </div>
+          <button class="action-btn" id="btn-search" data-action="search">
+            <span class="btn-text">Search</span>
+            <span class="btn-spinner hidden"></span>
+          </button>
+        </div>
+
+        <div class="url-field-group">
+          <label class="field-label">Random Populate URL</label>
+          <div class="input-row">
+            <span class="status-dot" id="dot-populate"></span>
+            <input type="url" id="input-populate-url" class="url-input" placeholder="https://api.example.com/populate" />
+          </div>
+          <button class="action-btn accent-secondary" id="btn-populate" data-action="populate">
+            <span class="btn-text">Populate Random</span>
+            <span class="btn-spinner hidden"></span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Address Info Card -->
+      <section class="sidebar-section" id="section-address" style="display:none">
+        <h2 class="section-title">Current Location</h2>
+        <div id="address-card" class="info-card">
+          <div class="card-icon">📍</div>
+          <div class="card-content">
+            <div id="address-text" class="address-text">—</div>
+            <div id="coords-text" class="coords-text font-mono">—</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Search Radius -->
+      <section class="sidebar-section" id="section-search">
+        <h2 class="section-title">Search Parameters</h2>
+        <div class="param-row">
+          <label class="field-label">Radius (km)</label>
+          <input type="number" id="input-radius" class="url-input small-input" value="5" min="1" max="100" />
+        </div>
+      </section>
+
+      <!-- Results List -->
+      <section class="sidebar-section" id="section-results">
+        <h2 class="section-title">
+          Nearby Services
+          <span id="result-count" class="result-badge">0</span>
+        </h2>
+        <div id="results-list" class="results-list">
+          <div class="empty-state">No results yet. Fetch an address and search.</div>
+        </div>
+      </section>
+    </aside>
+
+    <!-- Map Container -->
+    <main id="map-container">
+      <div id="map"></div>
+      <!-- Ripple SVG overlay (positioned by OverlayView) -->
+      <svg id="ripple-svg" style="position:absolute;top:0;left:0;pointer-events:none;overflow:visible;display:none">
+        <circle class="ripple-ring" cx="0" cy="0" r="0" fill="none" stroke="var(--accent)" />
+        <circle class="ripple-ring" cx="0" cy="0" r="0" fill="none" stroke="var(--accent)" style="animation-delay:1s" />
+        <circle class="ripple-ring" cx="0" cy="0" r="0" fill="none" stroke="var(--accent)" style="animation-delay:2s" />
+        <circle class="ripple-ring" cx="0" cy="0" r="0" fill="none" stroke="var(--accent)" style="animation-delay:3s" />
+      </svg>
+      <div id="map-placeholder" class="map-placeholder">
+        <div class="placeholder-inner">
+          <div class="placeholder-icon">🗺️</div>
+          <p>Configure your Google Maps API key in <strong>.env</strong> to enable the map</p>
+          <p class="hint">Add <code>GOOGLE_MAPS_API_KEY=your_key_here</code> to your <code>.env</code> file and restart the app</p>
+        </div>
+      </div>
+    </main>
+
+  </div><!-- /app-body -->
+
+  <!-- Google Maps API — key injected at runtime via app.js -->
+  <script src="app.js"></script>
+</body>
+</html>
